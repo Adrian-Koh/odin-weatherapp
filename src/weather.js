@@ -2,7 +2,7 @@ export async function getWeather(location) {
   const API_KEY = "VFWHDE4WL6YS6DRWURUV84S3A";
   if (!location) location = "kuala lumpur";
   const link = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${location}/?key=${API_KEY}`;
-
+  // TODO: include options
   const response = await fetch(link, { mode: "cors" });
 
   if (!response.ok) {
@@ -15,10 +15,24 @@ export async function getWeather(location) {
 
   const dayWeathers = [];
   for (let i = 0; i < 10; i++) {
+    const dayData = data.days[i];
+
+    const hourWeathers = [];
+    for (const hourData of dayData.hours) {
+      const hour = hourData.datetime.split(":")[0];
+      const hourWeather = new HourWeather(
+        hour,
+        hourData.temp,
+        hourData.feelslike,
+      );
+      hourWeathers.push(hourWeather);
+    }
+
     const dayWeather = new DayWeather(
-      data.days[i].datetime,
-      data.days[i].temp,
-      data.days[i].feelslike,
+      dayData.datetime,
+      dayData.temp,
+      dayData.feelslike,
+      hourWeathers,
     );
     dayWeathers.push(dayWeather);
   }
@@ -30,20 +44,53 @@ export async function getWeather(location) {
 
 function displayWeather(weatherArr) {
   const weatherSection = document.querySelector("#weather-data");
-  const weatherRow = document.querySelector(".weather-row");
-  for (const weather of weatherArr) {
+  const weatherRow = weatherSection.querySelector(".weather-row");
+  const weatherRows = weatherSection.querySelectorAll(".weather-row");
+  for (const row of weatherRows) {
+    weatherSection.removeChild(row);
+  }
+  for (const dayWeather of weatherArr) {
     const newRow = weatherRow.cloneNode(true);
 
-    newRow.querySelector(".date").innerText = weather.date;
-    newRow.querySelector(".temp").innerText = weather.temp;
-    newRow.querySelector(".feels-like").innerText = weather.feelslike;
+    newRow.querySelector(".date").innerText = dayWeather.date;
+    newRow.querySelector(".day-temp").innerText = dayWeather.temp;
+    newRow.querySelector(".day-feels-like").innerText = dayWeather.feelslike;
+    newRow.addEventListener("click", () => {
+      displayHourWeather(dayWeather);
+    });
     weatherSection.appendChild(newRow);
   }
 }
 
+function displayHourWeather(dayWeather) {
+  const weatherSection = document.querySelector("#hourly-weather");
+  const weatherCol = weatherSection.querySelector(".weather-col");
+  const weatherCols = weatherSection.querySelectorAll(".weather-col");
+  for (const col of weatherCols) {
+    weatherSection.removeChild(col);
+  }
+  for (const hourWeather of dayWeather.hourWeathers) {
+    const newCol = weatherCol.cloneNode(true);
+
+    newCol.querySelector(".hour").innerText = hourWeather.hour;
+    newCol.querySelector(".hour-temp").innerText = hourWeather.temp;
+    newCol.querySelector(".hour-feels-like").innerText = hourWeather.feelslike;
+    weatherSection.appendChild(newCol);
+  }
+}
+
 class DayWeather {
-  constructor(date, temp, feelslike) {
+  constructor(date, temp, feelslike, hourWeathers) {
     this.date = date;
+    this.temp = temp;
+    this.feelslike = feelslike;
+    this.hourWeathers = hourWeathers;
+  }
+}
+
+class HourWeather {
+  constructor(hour, temp, feelslike) {
+    this.hour = hour;
     this.temp = temp;
     this.feelslike = feelslike;
   }
