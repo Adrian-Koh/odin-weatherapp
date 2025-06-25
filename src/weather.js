@@ -45,6 +45,7 @@ export async function getWeather(location) {
 
 async function displayWeather(weatherArr) {
   const weatherSection = document.querySelector("#weather-data");
+  weatherSection.className = "show";
   const weatherRow = weatherSection.querySelector(".weather-row");
   const weatherRows = weatherSection.querySelectorAll(".weather-row");
   for (const row of weatherRows) {
@@ -74,6 +75,7 @@ async function displayWeather(weatherArr) {
 
 function displayHourWeather(dayWeather) {
   const weatherSection = document.querySelector("#hourly-weather");
+  weatherSection.className = "show";
   const weatherCol = weatherSection.querySelector(".weather-col");
   const weatherCols = weatherSection.querySelectorAll(".weather-col");
   for (const col of weatherCols) {
@@ -89,11 +91,15 @@ function displayHourWeather(dayWeather) {
   }
 }
 
+function convertFtoC(fahrenheit) {
+  return ((fahrenheit - 32) / (9 / 5)).toFixed(1);
+}
+
 class DayWeather {
   constructor(date, temp, feelslike, icon, hourWeathers) {
     this.date = date;
-    this.temp = temp;
-    this.feelslike = feelslike;
+    this.temp = convertFtoC(temp);
+    this.feelslike = convertFtoC(feelslike);
     this.hourWeathers = hourWeathers;
     this.icon = icon;
   }
@@ -102,7 +108,7 @@ class DayWeather {
 class HourWeather {
   constructor(hour, temp, feelslike) {
     this.hour = hour;
-    this.temp = temp;
-    this.feelslike = feelslike;
+    this.temp = convertFtoC(temp);
+    this.feelslike = convertFtoC(feelslike);
   }
 }

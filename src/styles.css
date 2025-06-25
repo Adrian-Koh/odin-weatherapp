@@ -36,7 +36,7 @@ html {
 
 .weather-row, .days-header {
     display: grid;
-    grid-template-columns: repeat(4, 100px);
+    grid-template-columns: repeat(4, 150px);
     gap: 20px;
     text-align: center;
     margin-bottom: 5px;
@@ -70,7 +70,7 @@ html {
 
 #hourly-weather {
     display: flex;
-    gap: 10px;
+    gap: 5px;
     background-color: rgb(42, 165, 79);
     color: white;
     padding: 5px;
@@ -84,11 +84,26 @@ html {
     padding: 2px;
 }
 
+.hours-header {
+    width: 7rem;
+}
+
 .weather-col {
-    width: 2rem;
+    width: 2.2rem;
 }
 
 .day-icon img {
     width: 50px;
     height: auto;
+}
+
+.hide#hourly-weather, .hide#weather-data {
+    display: none;
+}
+
+.show#hourly-weather  {
+    display: flex;
+}
+.show#weather-data {
+    display: block;
 }
