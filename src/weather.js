@@ -14,7 +14,7 @@ export async function getWeather(location) {
   const data = await response.json();
 
   const dayWeathers = [];
-  for (let i = 0; i < 10; i++) {
+  for (let i = 0; i < 7; i++) {
     const dayData = data.days[i];
 
     const hourWeathers = [];
@@ -32,6 +32,7 @@ export async function getWeather(location) {
       dayData.datetime,
       dayData.temp,
       dayData.feelslike,
+      dayData.icon,
       hourWeathers,
     );
     dayWeathers.push(dayWeather);
@@ -42,7 +43,7 @@ export async function getWeather(location) {
   console.log(data);
 }
 
-function displayWeather(weatherArr) {
+async function displayWeather(weatherArr) {
   const weatherSection = document.querySelector("#weather-data");
   const weatherRow = weatherSection.querySelector(".weather-row");
   const weatherRows = weatherSection.querySelectorAll(".weather-row");
@@ -51,10 +52,19 @@ function displayWeather(weatherArr) {
   }
   for (const dayWeather of weatherArr) {
     const newRow = weatherRow.cloneNode(true);
+    let img = document.createElement("img");
+
+    import(`./icons/${dayWeather.icon}.png`).then((module) => {
+      const imgDiv = newRow.querySelector(".day-icon");
+      imgDiv.innerHTML = "";
+      img.src = module.default;
+      imgDiv.appendChild(img);
+    });
 
     newRow.querySelector(".date").innerText = dayWeather.date;
     newRow.querySelector(".day-temp").innerText = dayWeather.temp;
     newRow.querySelector(".day-feels-like").innerText = dayWeather.feelslike;
+
     newRow.addEventListener("click", () => {
       displayHourWeather(dayWeather);
     });
@@ -80,11 +90,12 @@ function displayHourWeather(dayWeather) {
 }
 
 class DayWeather {
-  constructor(date, temp, feelslike, hourWeathers) {
+  constructor(date, temp, feelslike, icon, hourWeathers) {
     this.date = date;
     this.temp = temp;
     this.feelslike = feelslike;
     this.hourWeathers = hourWeathers;
+    this.icon = icon;
   }
 }
 
