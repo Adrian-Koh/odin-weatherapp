@@ -1,41 +1,49 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
     <title>Weather app</title>
-</head>
-<body>
+  </head>
+  <body>
     <div id="container">
-        <div id="title">Weather app</div>
-        <div id="searchbar">
-            <label for="search">Location: <input type="search" id="search"></label>
-            <button id="search-btn">Search</button>
+      <div id="title">Weather app</div>
+      <div id="search-bar">
+        <label for="search"
+          >Location: <input type="search" id="search"
+        /></label>
+        <button id="search-btn">Search</button>
+      </div>
+      <div id="weather-data">
+        <div class="days-header">
+          <div>Date</div>
+          <div>Temperature</div>
+          <div>Feels like</div>
         </div>
-        <div id="weather-data">
-            <div class="days-header">
-                <div>Date</div>
-                <div>Temperature</div>
-                <div>Feels like</div>
-            </div>
-            <div class="weather-row">
-                <div class="date"></div>
-                <div class="day-temp"></div>
-                <div class="day-feels-like"></div>
-            </div>
+        <div class="weather-row">
+          <div class="date"></div>
+          <div class="day-temp"></div>
+          <div class="day-feels-like"></div>
         </div>
-        <div id="hourly-weather">
-            <div class="hours-header">
-                <div>Hour</div>
-                <div>Temperature</div>
-                <div>Feels like</div>
-            </div>
-            <div class="weather-col">
-                <div class="hour"></div>
-                <div class="hour-temp"></div>
-                <div class="hour-feels-like"></div>
-            </div>
+      </div>
+      <div id="hourly-weather">
+        <div class="hours-header">
+          <div>Hour</div>
+          <div>Temperature</div>
+          <div>Feels like</div>
         </div>
+        <div class="weather-col">
+          <div class="hour"></div>
+          <div class="hour-temp"></div>
+          <div class="hour-feels-like"></div>
+        </div>
+      </div>
     </div>
-</body>
+  </body>
 </html>

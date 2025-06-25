@@ -1,8 +1,37 @@
+html {
+    font-family: "Roboto", sans-serif;
+}
+
 #container {
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 20px;
+}
+
+#title {
+    font-size: 32px;
+    background: linear-gradient(rgb(235, 182, 9), rgb(16, 87, 219));
+    padding: 10px;
+    color: white;
+    border-radius: 5px;
+}
+
+#weather-data {
+    background-color: rgb(16, 87, 219);
+    color: white;
+    padding: 15px;
+    border-radius: 10px;
+}
+
+.days-header {
+    font-weight: 700;
+}
+
+.weather-row {
+    border: solid 2px white;
+    padding: 5px;
+    border-radius: 5px;
 }
 
 .weather-row, .days-header {
@@ -13,7 +42,42 @@
     margin-bottom: 5px;
 }
 
+#search-bar {
+    border-radius: 10px;
+    background-color: rgb(187, 146, 10);
+    padding: 10px;
+    color: white;
+}
+
+#search {
+    border: none;
+    border-radius: 3px;
+    height: 1.5rem;
+}
+
+#search-btn {
+    background-color: white;
+    border: none;
+    border-radius: 3px;
+    height: 1.5rem;
+}
+
+#search:focus {
+    outline: none;
+}
+
 #hourly-weather {
     display: flex;
     gap: 10px;
+    background-color: rgb(42, 165, 79);
+    color: white;
+    padding: 5px;
+    border-radius: 3px;
+}
+
+.hours-header, .weather-col {
+    font-size: 14px;
+    text-align: center;
+    border: solid 1px white;
+    padding: 2px;
 }
