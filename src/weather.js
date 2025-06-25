@@ -2,7 +2,7 @@ export async function getWeather(location) {
   const API_KEY = "VFWHDE4WL6YS6DRWURUV84S3A";
   if (!location) location = "kuala lumpur";
   const link = `https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/${location}/?key=${API_KEY}`;
-  // TODO: include options
+
   const response = await fetch(link, { mode: "cors" });
 
   if (!response.ok) {
@@ -38,6 +38,8 @@ export async function getWeather(location) {
     dayWeathers.push(dayWeather);
   }
 
+  document.querySelector("#title").innerText =
+    `Weather app - ${data.resolvedAddress}`;
   displayWeather(dayWeathers);
 
   console.log(data);
